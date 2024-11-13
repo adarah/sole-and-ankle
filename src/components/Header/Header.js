@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled from "styled-components/macro";
 
-import { COLORS, WEIGHTS } from '../../constants';
-import Logo from '../Logo';
-import SuperHeader from '../SuperHeader';
+import { COLORS, WEIGHTS } from "../../constants";
+import Logo from "../Logo";
+import SuperHeader from "../SuperHeader";
 
 const Header = () => {
   // Our site features two visual headers, but they should be
@@ -12,7 +12,9 @@ const Header = () => {
     <header>
       <SuperHeader />
       <MainHeader>
-        <Logo />
+        <LogoWrapper>
+          <Logo />
+        </LogoWrapper>
         <Nav>
           <NavLink href="/sale">Sale</NavLink>
           <NavLink href="/new">New&nbsp;Releases</NavLink>
@@ -27,11 +29,31 @@ const Header = () => {
 };
 
 const MainHeader = styled.div`
-  padding: 0 32px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+
+  padding: 24px 32px;
   border-bottom: 1px solid ${COLORS.gray[300]};
 `;
 
-const Nav = styled.nav``;
+// Wrapper used instead of styled(Logo) because the keyboard navigation experience is broken when applying
+// styles directly to the Logo Component, as the styles hit the h1 but not the a tag
+const LogoWrapper = styled.div`
+  position: absolute;
+  /* Removes the height stretch coming from the parent flex container */
+  align-self: flex-start;
+  left: 32px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+`;
+
+const Nav = styled.nav`
+  display: flex;
+  gap: 3rem;
+`;
 
 const NavLink = styled.a`
   font-size: 1.125rem;
