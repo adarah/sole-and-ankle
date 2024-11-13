@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled from "styled-components/macro";
 
-import { WEIGHTS } from '../../constants';
+import { WEIGHTS } from "../../constants";
 
-import Breadcrumbs from '../Breadcrumbs';
-import Select from '../Select';
-import Spacer from '../Spacer';
-import ShoeSidebar from '../ShoeSidebar';
-import ShoeGrid from '../ShoeGrid';
+import Breadcrumbs from "../Breadcrumbs";
+import Select from "../Select";
+import Spacer from "../Spacer";
+import ShoeSidebar from "../ShoeSidebar";
+import ShoeGrid from "../ShoeGrid";
 
 const ShoeIndex = ({ sortId, setSortId }) => {
   return (
@@ -28,13 +28,11 @@ const ShoeIndex = ({ sortId, setSortId }) => {
         {/* <ShoeGrid /> */}
       </MainColumn>
       <LeftColumn>
-        <CrumbWrapper>
-          <Breadcrumbs>
-            <Breadcrumbs.Crumb href="/">Home</Breadcrumbs.Crumb>
-            <Breadcrumbs.Crumb href="/sale">Sale</Breadcrumbs.Crumb>
-            <Breadcrumbs.Crumb href="/sale/shoes">Shoes</Breadcrumbs.Crumb>
-          </Breadcrumbs>
-        </CrumbWrapper>
+        <Breadcrumbs>
+          <Breadcrumbs.Crumb href="/">Home</Breadcrumbs.Crumb>
+          <Breadcrumbs.Crumb href="/sale">Sale</Breadcrumbs.Crumb>
+          <Breadcrumbs.Crumb href="/sale/shoes">Shoes</Breadcrumbs.Crumb>
+        </Breadcrumbs>
         <Spacer size={42} />
         <ShoeSidebar />
       </LeftColumn>
@@ -46,14 +44,11 @@ const Wrapper = styled.div`
   display: flex;
   gap: 32px;
   flex-direction: row-reverse;
+  align-items: baseline;
 `;
 
-const LeftColumn = styled.div``;
-
-const CrumbWrapper = styled.div`
-  height: 3rem;
-  display: flex;
-  align-items: center;
+const LeftColumn = styled.div`
+  width: ${248 / 16}rem;
 `;
 
 const MainColumn = styled.div`
