@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled from "styled-components/macro";
 
-import { COLORS, WEIGHTS } from '../../constants';
-import { formatPrice, pluralize, isNewShoe } from '../../utils';
-import Spacer from '../Spacer';
+import { COLORS, WEIGHTS } from "../../constants";
+import { formatPrice, pluralize, isNewShoe } from "../../utils";
+import Spacer from "../Spacer";
 
 const ShoeCard = ({
   slug,
@@ -40,19 +40,39 @@ const ShoeCard = ({
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price onSale={variant === 'on-sale'}>{formatPrice(price)}</Price>
         </Row>
         <Row>
-          <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          <ColorInfo>{pluralize("Color", numOfColors)}</ColorInfo>
+          {variant === 'on-sale' && <SalePrice>{formatPrice(salePrice)}</SalePrice>}
         </Row>
       </Wrapper>
+      <Label variant={variant} />
     </Link>
   );
 };
 
+function Label({ variant }) {
+  if (!variant || variant === "default") {
+    return null;
+  }
+
+  return (
+    <LabelText
+      style={{
+        "--color":
+          variant === "new-release" ? COLORS.secondary : COLORS.primary,
+      }}
+    >
+      {formatLabel(variant)}
+    </LabelText>
+  );
+}
+
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
+  position: relative;
 `;
 
 const Wrapper = styled.article`
@@ -80,7 +100,12 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  text-decoration: ${props => props.onSale && 'line-through'};
+  color: ${props => props.onSale && COLORS.gray[700]};
+  text-decoration-color: ${props => props.onSale && COLORS.gray[700]};
+  font-weight: 500;
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
@@ -90,5 +115,30 @@ const SalePrice = styled.span`
   font-weight: ${WEIGHTS.medium};
   color: ${COLORS.primary};
 `;
+
+const LabelText = styled.span`
+  position: absolute;
+  top: 12px;
+  right: -4px;
+  padding: 0.5rem;
+  background-color: var(--color);
+
+  font-weight: 700;
+  line-height: 1rem;
+  color: ${COLORS.white};
+  border-radius: 2px;
+  font-size: ${14 / 16}rem;
+`;
+
+function formatLabel(variant) {
+  switch (variant) {
+    case "new-release":
+      return "Just Released!";
+    case "on-sale":
+      return "Sale";
+    default:
+      return "";
+  }
+}
 
 export default ShoeCard;
