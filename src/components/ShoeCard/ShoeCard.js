@@ -40,34 +40,29 @@ const ShoeCard = ({
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price onSale={variant === 'on-sale'}>{formatPrice(price)}</Price>
+          <Price
+            style={{
+              "--color": variant === "on-sale" && COLORS.gray[700],
+              "--text-decoration": variant === "on-sale" && "line-through",
+            }}
+          >
+            {formatPrice(price)}
+          </Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize("Color", numOfColors)}</ColorInfo>
-          {variant === 'on-sale' && <SalePrice>{formatPrice(salePrice)}</SalePrice>}
+          {variant === "on-sale" && (
+            <SalePrice>{formatPrice(salePrice)}</SalePrice>
+          )}
         </Row>
       </Wrapper>
-      <Label variant={variant} />
+      {variant === "on-sale" && <SaleFlag variant={variant}>Sale</SaleFlag>}
+      {variant === "new-release" && (
+        <NewReleaseFlag variant={variant}>Just Released!</NewReleaseFlag>
+      )}
     </Link>
   );
 };
-
-function Label({ variant }) {
-  if (!variant || variant === "default") {
-    return null;
-  }
-
-  return (
-    <LabelText
-      style={{
-        "--color":
-          variant === "new-release" ? COLORS.secondary : COLORS.primary,
-      }}
-    >
-      {formatLabel(variant)}
-    </LabelText>
-  );
-}
 
 const Link = styled.a`
   text-decoration: none;
@@ -101,9 +96,9 @@ const Name = styled.h3`
 `;
 
 const Price = styled.span`
-  text-decoration: ${props => props.onSale && 'line-through'};
-  color: ${props => props.onSale && COLORS.gray[700]};
-  text-decoration-color: ${props => props.onSale && COLORS.gray[700]};
+  text-decoration: var(--text-decoration);
+  color: var(--color);
+  text-decoration-color: var(--color);
   font-weight: 500;
 `;
 
@@ -116,29 +111,27 @@ const SalePrice = styled.span`
   color: ${COLORS.primary};
 `;
 
-const LabelText = styled.span`
+const Flag = styled.div`
   position: absolute;
   top: 12px;
   right: -4px;
-  padding: 0.5rem;
-  background-color: var(--color);
+  height: 32px;
 
-  font-weight: 700;
-  line-height: 1rem;
   color: ${COLORS.white};
   border-radius: 2px;
+  padding: 0 10px;
+
   font-size: ${14 / 16}rem;
+  font-weight: ${WEIGHTS.bold};
+  line-height: 32px;
 `;
 
-function formatLabel(variant) {
-  switch (variant) {
-    case "new-release":
-      return "Just Released!";
-    case "on-sale":
-      return "Sale";
-    default:
-      return "";
-  }
-}
+const SaleFlag = styled(Flag)`
+  background-color: ${COLORS.primary};
+`;
+
+const NewReleaseFlag = styled(Flag)`
+  background-color: ${COLORS.secondary};
+`;
 
 export default ShoeCard;
