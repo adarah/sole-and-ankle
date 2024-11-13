@@ -51,10 +51,8 @@ const ShoeCard = ({
 };
 
 const Link = styled.a`
-  flex: 1;
   text-decoration: none;
   color: inherit;
-  min-width: 340px;
 `;
 
 const Wrapper = styled.article`
