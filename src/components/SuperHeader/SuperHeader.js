@@ -13,7 +13,7 @@ const SuperHeader = () => {
       <MarketingMessage>
         Free shipping on domestic orders over $75!
       </MarketingMessage>
-      <SearchInput />
+        <SearchInput />
       <HelpLink href="/help">Help</HelpLink>
       <UnstyledButton>
         <Icon id="shopping-bag" strokeWidth={1} />
@@ -26,6 +26,19 @@ const Wrapper = styled.div`
   font-size: 0.875rem;
   color: ${COLORS.gray[300]};
   background-color: ${COLORS.gray[900]};
+
+  display: flex;
+  align-items: center;
+  padding-inline: 32px;
+  padding-block: 8px;
+
+  & *:not(:last-child) {
+    margin-right: 24px;
+  }
+
+  & *:first-child {
+    margin-right: auto;
+  }
 `;
 
 const MarketingMessage = styled.span`
