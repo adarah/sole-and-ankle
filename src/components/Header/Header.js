@@ -12,9 +12,9 @@ const Header = () => {
     <header>
       <SuperHeader />
       <MainHeader>
-        <LogoWrapper>
-          <Logo />
-        </LogoWrapper>
+        <Side>
+          <StyledLogo />
+        </Side>
         <Nav>
           <NavLink href="/sale">Sale</NavLink>
           <NavLink href="/new">New&nbsp;Releases</NavLink>
@@ -23,40 +23,32 @@ const Header = () => {
           <NavLink href="/kids">Kids</NavLink>
           <NavLink href="/collections">Collections</NavLink>
         </Nav>
+        <Side />
       </MainHeader>
     </header>
   );
 };
 
 const MainHeader = styled.div`
-  position: relative;
   display: flex;
   justify-content: center;
-  gap: 48px;
+  align-items: baseline;
 
   padding: 24px 32px;
   border-bottom: 1px solid ${COLORS.gray[300]};
-`;
-
-// Wrapper used instead of styled(Logo) because the keyboard navigation experience is broken when applying
-// styles directly to the Logo Component, as the styles hit the h1 but not the a tag
-const LogoWrapper = styled.div`
-  position: absolute;
-  /* Removes the height stretch coming from the parent flex container */
-  align-self: flex-start;
-  left: 32px;
-  top: 0;
-  bottom: 0;
-  margin: auto;
+  height: ${72 / 16}rem;
 `;
 
 const Nav = styled.nav`
   display: flex;
+  align-items: center;
   gap: 3rem;
+  margin-inline: 48px;
 `;
 
 const NavLink = styled.a`
   font-size: 1.125rem;
+  line-height: ${20 / 16}rem;
   text-transform: uppercase;
   text-decoration: none;
   color: ${COLORS.gray[900]};
@@ -65,6 +57,14 @@ const NavLink = styled.a`
   &:first-of-type {
     color: ${COLORS.secondary};
   }
+`;
+
+const Side = styled.div`
+  flex: 1;
+`;
+
+const StyledLogo = styled(Logo)`
+  line-height: ${20 / 16}rem;
 `;
 
 export default Header;
