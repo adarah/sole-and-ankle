@@ -33,6 +33,7 @@ const MainHeader = styled.div`
   display: flex;
   justify-content: center;
   align-items: baseline;
+  min-width: max-content;
 
   padding: 24px 32px;
   border-bottom: 1px solid ${COLORS.gray[300]};
