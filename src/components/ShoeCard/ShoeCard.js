@@ -55,11 +55,11 @@ const ShoeCard = ({
             <SalePrice>{formatPrice(salePrice)}</SalePrice>
           )}
         </Row>
-      </Wrapper>
       {variant === "on-sale" && <SaleFlag variant={variant}>Sale</SaleFlag>}
       {variant === "new-release" && (
         <NewReleaseFlag variant={variant}>Just Released!</NewReleaseFlag>
       )}
+      </Wrapper>
     </Link>
   );
 };
@@ -76,7 +76,6 @@ const Wrapper = styled.article`
 `;
 
 const ImageWrapper = styled.div`
-  position: relative;
   line-height: 0;
 `;
 
